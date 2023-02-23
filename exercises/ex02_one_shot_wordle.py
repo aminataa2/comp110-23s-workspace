@@ -1,41 +1,44 @@
 """One Shot Wordle!"""
 __author__: str = "730482498"
 
-secret: str = "python"
-guess: str = input("What is your 6-letter guess? ")
+secret: str = "python" # secret_word
+value: int = len(secret) #bad name
+guess: str = input(f"What is your {value}-letter guess? ") # guess_word
 
 WHITE_BOX: str = "\U00002B1C"
 GREEN_BOX: str = "\U0001F7E9"
 YELLOW_BOX: str = "\U0001F7E8"
+
 index: int = 0
 emoji: str = ""
 anywhere_else: bool = False
-alternate: int = 0
+correct_counter: int = 0
 
-while index < len(secret):
+while (len(guess) != value):
+        guess: str = input(f"That was not {value} letters! Try again: ")
+
+while (index < len(secret)):
+    alternate: int = 0
+    anywhere_else = False
     if (guess[index] == secret[index]):
         emoji = emoji + GREEN_BOX
+        correct_counter = correct_counter + 1
     else:
-        while anywhere_else == False and alternate < len(secret):
+        while (alternate < len(secret)): 
             if (secret[alternate] == guess[index]):
                 anywhere_else = True
-            else:
-                alternate = alternate + 1
-        if anywhere_else == True:
+            alternate = alternate + 1
+        if (anywhere_else):
             emoji = emoji + YELLOW_BOX
         else:
             emoji = emoji + WHITE_BOX
     index = index + 1
+
+
 print(emoji)
-
-
-if guess == secret:
+if (guess == secret):
     print("Woo! You got it!")
 else:
-    if len(guess) == 6 and guess != secret:
-     print("Not quite. Play again soon!")
-    while len(guess) != 6:
-        guess: str = input("That was not 6 letters! Try again: ")
-        if len(guess) == 6 and guess != secret:
-            print("Not quite. Play again soon!")
+    print("Not quite. Play again soon!")
+    
 
